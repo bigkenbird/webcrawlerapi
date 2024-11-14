@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: webcrawlerapi
+
+chrome:
+  driver:
+    path: "file/driver/chromedriver.exe"
+
+ig:
+  crawler:
+    login: "https://www.instagram.com/"
+    use:
+      account: "<your-ig-account>"
+      password: "<your-ig-password>"
+
