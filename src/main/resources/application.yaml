@@ -1,10 +1,13 @@
 spring:
   application:
     name: webcrawlerapi
-
-chrome:
-  driver:
-    path: "file/driver/chromedriver.exe"
+  datasource:
+    url: jdbc:mysql://localhost:3330/webcrawler
+    username: root
+    password: HKtv2014
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 ig:
   crawler:
@@ -12,4 +15,9 @@ ig:
     use:
       account: "<your-ig-account>"
       password: "<your-ig-password>"
+
+ptt:
+  crawler:
+    index:
+      url: https://www.ptt.cc/bbs/index.html
 

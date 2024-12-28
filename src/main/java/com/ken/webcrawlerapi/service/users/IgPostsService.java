@@ -2,12 +2,14 @@ package com.ken.webcrawlerapi.service.users;
 
 import com.ken.webcrawlerapi.service.users.pojo.PostDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class IgPostsService {
 
     private final WebDriver chromeDriver;
@@ -42,7 +45,7 @@ public class IgPostsService {
                     .findElement(By.cssSelector("button._abl-"));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             nextPostsButton = null;
         }
 
