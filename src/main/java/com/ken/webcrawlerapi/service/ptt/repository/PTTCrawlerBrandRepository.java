@@ -42,7 +42,7 @@ public class PTTCrawlerBrandRepository {
     }
 
     private String mapToBrandUrl(String uri){
-        return String.format("https://www.ptt.cc/%s",uri);
+        return String.format("https://www.ptt.cc%s",uri);
     }
 
     private Brand mapToBrand(Element element){

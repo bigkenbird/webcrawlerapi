@@ -17,8 +17,13 @@ class WebcrawlerApplicationTests {
     private PostService postService;
 
     @Test
-    void contextLoads() {
+    void updateBrand() {
         brandService.updateBrand();
+    }
+
+    @Test
+    void updatePost() throws InterruptedException {
+        postService.updatePost();
     }
 
 }

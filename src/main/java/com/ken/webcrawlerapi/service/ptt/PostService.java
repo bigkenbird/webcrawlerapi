@@ -22,11 +22,12 @@ public class PostService {
 
     private final PTTCrawlerPostsRepository pttCrawlerPostsRepository;
 
-    public void updatePost(){
+    public void updatePost() throws InterruptedException {
         List<Brand> brands = brandRepository.findAll().subList(0,2);
         for(Brand brand:brands){
             String brandName = brand.getName();
             String brandUrl = brand.getUrl();
+
 
             List<Post> posts = pttCrawlerPostsRepository.getPosts(brandUrl,brandName);
 
