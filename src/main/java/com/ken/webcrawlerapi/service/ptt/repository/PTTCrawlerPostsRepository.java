@@ -60,16 +60,23 @@ public class PTTCrawlerPostsRepository {
     private Post mapToPost(Element element, String brandName){
 
         Element commentCountElement = Objects.requireNonNull(element.getElementsByClass("nrec").getFirst()).tagName("span");
-        Integer commentCount =  StringUtils.hasText(commentCountElement.text()) ? Integer.parseInt(commentCountElement.text()) : 0;
+        String commentCountText = commentCountElement.text();
+        Integer commentCount =  StringUtils.hasText(commentCountText) ?
+                "爆".equals(commentCountText) ?
+                Integer.MAX_VALUE : Integer.parseInt(commentCountElement.text())
+                : 0;
 
         Element titleElement = Objects.requireNonNull(element.getElementsByClass("title").getFirst()).tagName("a");
 
         String title = titleElement.text();
         String uri = titleElement.attr("href");
         String url = mapToPostUrl(uri);
-
-        Element articleAuthorElement = Objects.requireNonNull(element.getElementsByClass("meta").getFirst()).getElementsByClass("div.author").getFirst();
-        String author = articleAuthorElement.text();
+        String author = "";
+        Elements metaElements = element.getElementsByClass("meta");
+        if(CollectionUtils.isEmpty(metaElements)){
+            Element articleAuthorElement = metaElements.getFirst().getElementsByClass("div.author").getFirst();
+            author = articleAuthorElement.text();
+        }
 
         Post post = new Post();
         post.setUrl(url);
