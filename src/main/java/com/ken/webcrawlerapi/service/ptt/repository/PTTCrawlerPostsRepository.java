@@ -4,6 +4,7 @@ import com.ken.webcrawlerapi.exception.pojo.WebCrawlerException;
 import com.ken.webcrawlerapi.service.ptt.pojo.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -63,18 +64,24 @@ public class PTTCrawlerPostsRepository {
         String commentCountText = commentCountElement.text();
         Integer commentCount =  StringUtils.hasText(commentCountText) ?
                 "爆".equals(commentCountText) ?
-                Integer.MAX_VALUE : Integer.parseInt(commentCountElement.text())
-                : 0;
+                Integer.MAX_VALUE :
+                        "XX".equals(commentCountText) ? Integer.MIN_VALUE :
+                            Integer.parseInt(commentCountElement.text())
+                                : 0;
 
         Element titleElement = Objects.requireNonNull(element.getElementsByClass("title").getFirst()).tagName("a");
 
         String title = titleElement.text();
-        String uri = titleElement.attr("href");
+        String uri = "";
+        if(titleElement.selectFirst("a[href]")!=null){
+            uri = titleElement.selectFirst("a[href]").attr("href");
+        }
+
         String url = mapToPostUrl(uri);
         String author = "";
         Elements metaElements = element.getElementsByClass("meta");
-        if(CollectionUtils.isEmpty(metaElements)){
-            Element articleAuthorElement = metaElements.getFirst().getElementsByClass("div.author").getFirst();
+        if(!CollectionUtils.isEmpty(metaElements)){
+            Element articleAuthorElement = metaElements.getFirst().getElementsByClass("author").getFirst();
             author = articleAuthorElement.text();
         }
 
@@ -88,7 +95,7 @@ public class PTTCrawlerPostsRepository {
     }
 
     private String mapToPostUrl(String uri){
-        return String.format("https://www.ptt.cc/%s",uri);
+        return StringUtils.hasText(uri) ? String.format("https://www.ptt.cc%s",uri): Strings.EMPTY;
     }
 
 }

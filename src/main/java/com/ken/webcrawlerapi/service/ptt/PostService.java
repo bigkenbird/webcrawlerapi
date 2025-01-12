@@ -4,6 +4,7 @@ import com.ken.webcrawlerapi.service.ptt.pojo.Brand;
 import com.ken.webcrawlerapi.service.ptt.pojo.Post;
 import com.ken.webcrawlerapi.service.ptt.repository.BrandRepository;
 import com.ken.webcrawlerapi.service.ptt.repository.PTTCrawlerPostsRepository;
+import com.ken.webcrawlerapi.service.ptt.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,19 +21,17 @@ public class PostService {
 
     private final BrandRepository brandRepository;
 
+    private final PostRepository postRepository;
+
     private final PTTCrawlerPostsRepository pttCrawlerPostsRepository;
 
     public void updatePost() throws InterruptedException {
-        List<Brand> brands = brandRepository.findAll().subList(0,2);
+        List<Brand> brands = brandRepository.findAll();
         for(Brand brand:brands){
             String brandName = brand.getName();
             String brandUrl = brand.getUrl();
-
-
             List<Post> posts = pttCrawlerPostsRepository.getPosts(brandUrl,brandName);
-
-            posts.forEach(System.out::println);
-
+            postRepository.saveAll(posts);
         }
     }
 
