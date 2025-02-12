@@ -4,7 +4,6 @@ import com.ken.webcrawlerapi.exception.pojo.WebCrawlerException;
 import com.ken.webcrawlerapi.service.ptt.pojo.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -72,19 +71,13 @@ public class PTTCrawlerPostsRepository {
         Element titleElement = Objects.requireNonNull(element.getElementsByClass("title").getFirst()).tagName("a");
 
         String title = titleElement.text();
-        String uri = "";
-        if(titleElement.selectFirst("a[href]")!=null){
-            uri = titleElement.selectFirst("a[href]").attr("href");
-        }
-
+        String uri = titleElement.select("a").attr("href");
         String url = mapToPostUrl(uri);
         String author = "";
         Elements metaElements = element.getElementsByClass("meta");
-        if(!CollectionUtils.isEmpty(metaElements)){
-            Element articleAuthorElement = metaElements.getFirst().getElementsByClass("author").getFirst();
-            author = articleAuthorElement.text();
+        if (!CollectionUtils.isEmpty(metaElements)) {
+            author = Objects.requireNonNull(metaElements.getFirst().selectFirst(".author")).text();
         }
-
         Post post = new Post();
         post.setUrl(url);
         post.setCommentCount(commentCount);
