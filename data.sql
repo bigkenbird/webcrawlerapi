@@ -9,7 +9,7 @@ CREATE TABLE `brand` (
                          `USER_COUNT` int(11) DEFAULT NULL,
                          PRIMARY KEY (`ID`),
                          UNIQUE KEY `NAME_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `brand_log` (
@@ -20,7 +20,7 @@ CREATE TABLE `brand_log` (
                              `CATEGORY` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                              `USER_COUNT` int(11) DEFAULT NULL,
                              PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `post` (
@@ -32,4 +32,13 @@ CREATE TABLE `post` (
                         `BRAND` varchar(200) DEFAULT NULL,
                         PRIMARY KEY (`ID`),
                         UNIQUE KEY `TITLE_UNIQUE` (`TITLE`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `content` (
+                           `ID` int NOT NULL AUTO_INCREMENT,
+                           `POST_ID` int NOT NULL,
+                           `TITLE` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           `CONTENT` TEXT ,
+                           `ARTICLE_AUTHOR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                           PRIMARY KEY (`ID`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

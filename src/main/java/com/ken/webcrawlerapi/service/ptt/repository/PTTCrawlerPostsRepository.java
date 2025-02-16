@@ -30,8 +30,6 @@ public class PTTCrawlerPostsRepository {
 
     private final WebDriver chromeDriver;
 
-    private final BrandRepository brandRepository;
-
     public List<Post> getPosts(String brandUrl, String brandName) throws InterruptedException {
         chromeDriver.get(brandUrl);
         String brandPageSource = checkIsOverEighteen(chromeDriver.getPageSource());
