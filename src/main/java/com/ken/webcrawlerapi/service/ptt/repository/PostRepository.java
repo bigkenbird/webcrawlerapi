@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 /**
  * @author ken.chen
  */
-public interface PostRepository extends JpaRepository<Post,Integer> {
+public interface PostRepository extends JpaRepository<Post, Integer> {
 
     @Transactional
     @Modifying

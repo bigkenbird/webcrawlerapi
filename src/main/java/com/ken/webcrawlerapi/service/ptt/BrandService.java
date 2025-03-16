@@ -28,17 +28,16 @@ public class BrandService {
 
     private final PTTCrawlerBrandRepository pttCrawlerBrandRepository;
 
-    public void updateBrand(){
+    public void updateBrand() {
         List<Brand> brands = pttCrawlerBrandRepository.getBrands();
 
         List<BrandLog> brandLogList = new ArrayList<>();
 
-        for(Brand brand:brands){
+        for (Brand brand : brands) {
             Brand originBrand = isBrandExist(brand);
-            if(originBrand==null){
+            if (originBrand == null) {
                 brandRepository.save(brand);
-            }
-            else{
+            } else {
                 brandRepository.update(
                         brand.getName(),
                         brand.getTitle(),
@@ -47,18 +46,18 @@ public class BrandService {
                         brand.getCategory(),
                         originBrand.getId());
                 BrandLog brandLog = new BrandLog();
-                BeanUtils.copyProperties(originBrand,brandLog);
+                BeanUtils.copyProperties(originBrand, brandLog);
                 brandLog.setId(null);
                 brandLogList.add(brandLog);
             }
         }
 
-        if(!CollectionUtils.isEmpty(brandLogList)){
+        if (!CollectionUtils.isEmpty(brandLogList)) {
             brandLogRepository.saveAll(brandLogList);
         }
     }
 
-    private Brand isBrandExist(Brand source){
+    private Brand isBrandExist(Brand source) {
         String brandName = source.getName();
         return brandRepository.findByName(brandName).orElse(null);
     }

@@ -26,15 +26,16 @@ public class PostService {
     private final PTTCrawlerPostsRepository pttCrawlerPostsRepository;
 
     public void updatePost() throws InterruptedException {
+        log.info("Updating post start");
         List<Brand> brands = brandRepository.findAll();
-        for(Brand brand:brands){
+        for (Brand brand : brands) {
             String brandName = brand.getName();
             String brandUrl = brand.getUrl();
-            List<Post> posts = pttCrawlerPostsRepository.getPosts(brandUrl,brandName);
+            List<Post> posts = pttCrawlerPostsRepository.getPosts(brandUrl, brandName);
             postRepository.saveAll(posts);
         }
+        log.info("Updating post end, update count:{}", postRepository.count());
     }
-
 
 
 }

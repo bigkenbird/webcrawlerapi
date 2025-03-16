@@ -7,27 +7,27 @@ import lombok.Data;
  * @author ken.chen
  */
 @Entity
-@Table(name="brand_log")
+@Table(name = "brand_log")
 @Data
 public class BrandLog {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="URL")
+    @Column(name = "URL")
     private String url;
 
-    @Column(name="TITLE")
+    @Column(name = "TITLE")
     private String title;
 
-    @Column(name="NAME",nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name="USER_COUNT")
+    @Column(name = "USER_COUNT")
     private Integer userCount;
 
-    @Column(name="CATEGORY")
+    @Column(name = "CATEGORY")
     private String category;
 
 }

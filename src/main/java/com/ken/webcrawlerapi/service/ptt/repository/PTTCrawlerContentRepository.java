@@ -24,7 +24,7 @@ public class PTTCrawlerContentRepository {
 
         content.setPostId(post.getId());
 
-        String contentPageSource = CheckUtil.checkIsOverEighteen(chromeDriver,chromeDriver.getPageSource());
+        String contentPageSource = CheckUtil.checkIsOverEighteen(chromeDriver, chromeDriver.getPageSource());
 
 
         return null;

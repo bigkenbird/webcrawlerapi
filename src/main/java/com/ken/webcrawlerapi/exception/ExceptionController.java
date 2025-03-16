@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController {
 
     @ExceptionHandler(WebCrawlerException.class)
-    void handleWebCrawlerException(WebCrawlerException exception){
+    void handleWebCrawlerException(WebCrawlerException exception) {
         log.error(exception.getMessage());
     }
 }

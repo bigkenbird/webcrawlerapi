@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class WebCrawlerException extends RuntimeException {
-    public WebCrawlerException(String message){
+    public WebCrawlerException(String message) {
         super(message);
     }
 }

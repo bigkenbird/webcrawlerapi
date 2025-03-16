@@ -30,31 +30,31 @@ public class PTTCrawlerBrandRepository {
     @Value("${ptt.crawler.index.url}")
     private String pttCrawlerIndexUrl;
 
-    public List<Brand> getBrands(){
+    public List<Brand> getBrands() {
         chromeDriver.get(pttCrawlerIndexUrl);
         String indexPageSource = chromeDriver.getPageSource();
-        if(!StringUtils.hasText(indexPageSource)){
-            throw new WebCrawlerException(String.format("crawl url:%s, but no html can find",pttCrawlerIndexUrl));
+        if (!StringUtils.hasText(indexPageSource)) {
+            throw new WebCrawlerException(String.format("crawl url:%s, but no html can find", pttCrawlerIndexUrl));
         }
         Document document = Jsoup.parse(indexPageSource);
         Elements elements = document.select(".b-ent");
         return elements.stream().map(this::mapToBrand).toList();
     }
 
-    private String mapToBrandUrl(String uri){
-        return String.format("https://www.ptt.cc%s",uri);
+    private String mapToBrandUrl(String uri) {
+        return String.format("https://www.ptt.cc%s", uri);
     }
 
-    private Brand mapToBrand(Element element){
+    private Brand mapToBrand(Element element) {
         Element linkElement = element.selectFirst("a.board");
         String uri = (linkElement == null) ? null : linkElement.attr("href");
-        String url = StringUtils.hasText(uri) ? mapToBrandUrl(uri):null;
+        String url = StringUtils.hasText(uri) ? mapToBrandUrl(uri) : null;
 
         Element nameElement = element.selectFirst("div.board-name");
         String name = (nameElement == null) ? null : nameElement.text();
 
         Element userCountElement = Objects.requireNonNull(element.selectFirst("div.board-nuser")).tagName("span");
-        Integer userCount =  Integer.valueOf(userCountElement.text());
+        Integer userCount = Integer.valueOf(userCountElement.text());
 
         Element categoryElement = element.selectFirst("div.board-class");
         String category = (categoryElement == null) ? null : categoryElement.text();

@@ -13,18 +13,17 @@ import org.springframework.util.CollectionUtils;
 public class CheckUtil {
 
     public static String checkIsOverEighteen(WebDriver chromeDriver, String html) {
-        try{
+        try {
             Document document = Jsoup.parse(html);
             Elements overEighteenNotice = document.select("div.over18-notice");
-            if(CollectionUtils.isEmpty(overEighteenNotice)){
+            if (CollectionUtils.isEmpty(overEighteenNotice)) {
                 return html;
             }
             WebElement button = chromeDriver.findElement(By.name("yes"));
             button.click();
             Thread.sleep(3000);
             return chromeDriver.getPageSource();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return null;
         }
