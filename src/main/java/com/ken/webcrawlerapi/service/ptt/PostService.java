@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ken.chen
@@ -32,7 +33,8 @@ public class PostService {
             String brandName = brand.getName();
             String brandUrl = brand.getUrl();
             List<Post> posts = pttCrawlerPostsRepository.getPosts(brandUrl, brandName);
-            postRepository.saveAll(posts);
+            List<Post> distinctPosts = posts.stream().distinct().toList();
+            postRepository.saveAll(distinctPosts);
         }
         log.info("Updating post end, update count:{}", postRepository.count());
     }

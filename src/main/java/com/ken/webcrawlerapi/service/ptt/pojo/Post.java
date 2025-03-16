@@ -2,6 +2,7 @@ package com.ken.webcrawlerapi.service.ptt.pojo;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author ken.chen
@@ -9,6 +10,7 @@ import lombok.Data;
 @Entity
 @Table(name = "post")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Post {
 
     @Id
@@ -19,6 +21,7 @@ public class Post {
     private String brand;
 
     @Column(name = "TITLE")
+    @EqualsAndHashCode.Include
     private String title;
 
     @Column(name = "COMMENT_COUNT")

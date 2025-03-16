@@ -16,7 +16,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -58,10 +60,11 @@ public class PTTCrawlerPostsRepository {
 
         Element commentCountElement = Objects.requireNonNull(element.getElementsByClass("nrec").getFirst()).tagName("span");
         String commentCountText = commentCountElement.text();
+        Map<String,Integer> countMap = buildCountMapping();
         Integer commentCount = StringUtils.hasText(commentCountText) ?
                 "爆".equals(commentCountText) ?
                         Integer.MAX_VALUE :
-                        "XX".equals(commentCountText) ? Integer.MIN_VALUE :
+                        countMap.containsKey(commentCountText) ? countMap.get(commentCountText) :
                                 Integer.parseInt(commentCountElement.text())
                 : 0;
 
@@ -90,6 +93,21 @@ public class PTTCrawlerPostsRepository {
 
     private Document parse(String html) {
         return Jsoup.parse(html);
+    }
+
+    private Map<String,Integer> buildCountMapping(){
+        Map<String,Integer> map = new HashMap<>();
+        map.put("X1",-10);
+        map.put("X2",-20);
+        map.put("X3",-30);
+        map.put("X4",-40);
+        map.put("X5",-50);
+        map.put("X6",-60);
+        map.put("X7",-70);
+        map.put("X8",-80);
+        map.put("X9",-90);
+        map.put("XX",-100);
+        return map;
     }
 
 }
