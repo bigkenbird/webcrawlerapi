@@ -27,15 +27,5 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Check if Maven is installed
-      run: |
-          if ! command -v mvn &> /dev/null; then
-            echo "Maven is not installed, installing..."
-            # 安裝 Maven（假設是 Ubuntu/Debian）
-            sudo apt update
-            sudo apt install -y maven
-          else
-            echo "Maven is already installed"
-          fi
     - name: Build with Maven
       run: mvn -B package --file pom.xml
