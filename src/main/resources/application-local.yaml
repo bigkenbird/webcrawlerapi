@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: webcrawlerapi
+  datasource:
+    url: jdbc:mysql://db.webcrawlerapi.orb.local:3306/webcrawler
+    username: ken
+    password: ken
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+ptt:
+  crawler:
+    index:
+      url: https://www.ptt.cc/bbs/index.html
+
