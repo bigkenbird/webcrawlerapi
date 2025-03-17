@@ -18,6 +18,7 @@ public class WebConfig {
         options.addArguments("--disable-notifications");
         options.addArguments("--start-maximized");
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         return new ChromeDriver(options);
     }
