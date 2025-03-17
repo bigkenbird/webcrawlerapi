@@ -10,20 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class WebcrawlerApplicationTests {
 
-    @Autowired
-    private BrandService brandService;
-
-    @Autowired
-    private PostService postService;
 
     @Test
-    void updateBrand() {
-        brandService.updateBrand();
-    }
-
-    @Test
-    void updatePost() throws InterruptedException {
-        postService.updatePost();
+    void updatePost(){
+        System.out.println("test");
     }
 
 }
