@@ -73,7 +73,9 @@ jobs:
         run: eval $(minikube docker-env)
 
       - name: Replace IMAGE_TAG in deployment.yaml
-        run: sed -i 's|<IMAGE_TAG>|'"$IMAGE_TAG"'|g' ./manifest/deploy/deployment.yaml
+        run: |
+          echo $IMAGE_TAG
+          sed -i'' -e 's|<IMAGE_TAG>|'"$IMAGE_TAG"'|g' ./manifest/deploy/deployment.yaml
 
       - name: Apply Kubernetes Deployment
         run: |
