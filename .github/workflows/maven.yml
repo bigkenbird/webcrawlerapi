@@ -32,6 +32,7 @@ jobs:
   docker:
     needs: build
     runs-on: self-hosted
+    environment: webcrawler
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
