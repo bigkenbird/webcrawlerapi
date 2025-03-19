@@ -54,7 +54,7 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           ls
-          docker build -t kenchen326713/webcrawler:$SHA_TAG --build-arg JAR_FILE=app/*.jar ./manifest/deploy/Dockerfile
+          docker build -t kenchen326713/webcrawler:$SHA_TAG --build-arg JAR_FILE=app/*.jar .
           docker push kenchen326713/webcrawler:$SHA_TAG
       - name: Save SHA for Deployment
         run: echo "IMAGE_TAG=$SHA_TAG" >> $GITHUB_ENV
