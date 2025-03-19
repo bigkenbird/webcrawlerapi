@@ -53,7 +53,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t kenchen326713/webcrawler:$SHA_TAG --build-arg JAR_FILE=app/*.jar ./Dockerfile
+          ls
+          docker build -t kenchen326713/webcrawler:$SHA_TAG --build-arg JAR_FILE=app/*.jar ./manifest/deploy/Dockerfile
           docker push kenchen326713/webcrawler:$SHA_TAG
       - name: Save SHA for Deployment
         run: echo "IMAGE_TAG=$SHA_TAG" >> $GITHUB_ENV
@@ -71,11 +72,13 @@ jobs:
       - name: Ensure Minikube Uses Local Docker
         run: eval $(minikube docker-env)
 
-      - name: Pull Docker Image
-        run: docker pull k918231524/webcrawler:$IMAGE_TAG
+      - name: Replace IMAGE_TAG in deployment.yaml
+        run: sed -i 's|<IMAGE_TAG>|'"$IMAGE_TAG"'|g' ./manifest/deploy/deployment.yaml
 
       - name: Apply Kubernetes Deployment
-        run: kubectl apply -f ./manifest/deploy/deployment.yaml
+        run: |
+          kubectl apply -f ./manifest/deploy/deployment.yaml
+          kubectl apply -f ./manifest/deploy/service.yaml
 
       - name: Wait for Pods to be Ready
         run: kubectl rollout status deployment/webcrawler

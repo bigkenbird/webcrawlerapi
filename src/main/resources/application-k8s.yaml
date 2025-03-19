@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: webcrawlerapi
+  datasource:
+    url: jdbc:h2:mem:webcrawler
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+ptt:
+  crawler:
+    index:
+      url: https://www.ptt.cc/bbs/index.html
