@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: webcrawler-app
-          image: k918231524/webcrawler:<IMAGE_TAG>
+          image: kenchen326713/webcrawler:<IMAGE_TAG>
           ports:
             - containerPort: 8080
           env:
