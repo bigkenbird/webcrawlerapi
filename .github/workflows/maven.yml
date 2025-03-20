@@ -21,7 +21,9 @@ jobs:
           cache: maven
 
       - name: Build JAR with Maven
-        run: mvn -B package --file pom.xml
+        run: |
+          export MAVEN_OPTS="-Dspring.profiles.active=test"
+          mvn -B package --file pom.xml
 
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
