@@ -80,13 +80,9 @@ jobs:
           echo ${{ needs.docker.outputs.IMAGE_TAG }}
           sed -i'' -e 's|<IMAGE_TAG>|'"${{ needs.docker.outputs.IMAGE_TAG }}"'|g' ./manifest/deploy/deployment.yaml
 
-      - name: Apply Kubernetes Deployment
+      - name: Apply Kubernetes Kustomization
         run: |
-          kubectl apply -f ./manifest/deploy/deployment.yaml
-          kubectl apply -f ./manifest/deploy/service.yaml
-
-      - name: Wait for Pods to be Ready
-        run: kubectl rollout status deployment/webcrawler
+          kubectl apply -k ./manifest/deploy
 
       - name: Check Kubernetes Deployment
         run: |
