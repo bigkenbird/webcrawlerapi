@@ -23,7 +23,6 @@ RUN apt-get update && \
 
 
 ARG JAR_FILE
-#COPY ${JAR_FILE} app.
-COPY ./target/webcrawlerapi-0.0.1-SNAPSHOT.jar app.
+COPY ${JAR_FILE} app.
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
