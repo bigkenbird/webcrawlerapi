@@ -26,6 +26,8 @@ spec:
               value: "ken"
             - name: MYSQL_DATABASE
               value: "webcrawler"
+          args:
+            - "--bind-address=0.0.0.0"
           volumeMounts:
             - name: mysql-storage
               mountPath: /var/lib/mysql
