@@ -90,6 +90,3 @@ jobs:
         run: |
           kubectl get pods -o wide
           kubectl describe deployment webcrawler
-
-      - name: Get Service URL
-        run: minikube service webcrawler-svc --url
