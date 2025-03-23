@@ -9,3 +9,5 @@ ptt:
     index:
       url: https://www.ptt.cc/bbs/index.html
 
+webdriver:
+  path: http://selenium.webcrawlerapi.orb.local:4444/wd/hub

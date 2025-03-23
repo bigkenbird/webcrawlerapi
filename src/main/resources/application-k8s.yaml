@@ -7,3 +7,5 @@ ptt:
   crawler:
     index:
       url: https://www.ptt.cc/bbs/index.html
+webdriver:
+  path: http://selenium-svc:4444/wd/hub
