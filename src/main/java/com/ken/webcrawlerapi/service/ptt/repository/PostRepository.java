@@ -7,10 +7,23 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * @author ken.chen
  */
 public interface PostRepository extends JpaRepository<Post, Integer> {
+
+    @Query(value = "SELECT * FROM post WHERE CONTENT_IS_UPDATE = 0", nativeQuery = true)
+    List<Post> findContentNoUpdate();
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE post " +
+            "SET CONTENT_IS_UPDATE = :content_is_update " +
+            "WHERE id = :id", nativeQuery = true)
+    void updateContentIsUpdateById(@Param("id") Integer id,
+                @Param("content_is_update") Integer content_is_update);
 
     @Transactional
     @Modifying

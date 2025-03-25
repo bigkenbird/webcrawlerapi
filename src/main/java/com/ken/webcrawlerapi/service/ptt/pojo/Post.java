@@ -33,4 +33,7 @@ public class Post {
     @Column(name = "URL")
     private String url;
 
+    @Column(name = "CONTENT_IS_UPDATE")
+    private Integer contentIsUpdate;
+
 }

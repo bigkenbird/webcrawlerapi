@@ -31,10 +31,11 @@ CREATE TABLE `post`
 (
     `ID`             INT NOT NULL AUTO_INCREMENT,
     `TITLE`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `COMMENT_COUNT`  INT                                                       DEFAULT NULL,
+    `COMMENT_COUNT`  INT  DEFAULT NULL,
     `ARTICLE_AUTHOR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `URL`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `BRAND`          varchar(200)                                                  DEFAULT NULL,
+    `BRAND`          varchar(200) DEFAULT NULL,
+    `CONTENT_IS_UPDATE` TINYINT(1) DEFAULT 0,
     PRIMARY KEY (`ID`),
     UNIQUE KEY `BRAND_TITLE_UNIQUE` (`BRAND`,`TITLE`)
 ) ENGINE = InnoDB
@@ -47,6 +48,8 @@ CREATE TABLE `content`
     `TITLE`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `CONTENT`        TEXT,
     `ARTICLE_AUTHOR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `BRAND_NAME` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `CREATE_TIME` DATETIME NULL,
     PRIMARY KEY (`ID`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;

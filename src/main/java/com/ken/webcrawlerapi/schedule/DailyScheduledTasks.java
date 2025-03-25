@@ -1,6 +1,7 @@
 package com.ken.webcrawlerapi.schedule;
 
 import com.ken.webcrawlerapi.service.ptt.BrandService;
+import com.ken.webcrawlerapi.service.ptt.ContentService;
 import com.ken.webcrawlerapi.service.ptt.PostService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ public class DailyScheduledTasks {
 
     private final PostService postService;
 
+    private final ContentService contentService;
+
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @PostConstruct
@@ -41,6 +44,13 @@ public class DailyScheduledTasks {
         log.info("start updatePosts - Current Time: {}", LocalDateTime.now().format(formatter));
         postService.updatePost();
         log.info("end updatePosts - Current Time: {}", LocalDateTime.now().format(formatter));
+    }
+
+    @Scheduled(fixedRate = 300000)
+    public void updateContents() {
+        log.info("start updateContents - Current Time: {}", LocalDateTime.now().format(formatter));
+        contentService.updateContents();
+        log.info("end updateContents - Current Time: {}", LocalDateTime.now().format(formatter));
 
     }
 

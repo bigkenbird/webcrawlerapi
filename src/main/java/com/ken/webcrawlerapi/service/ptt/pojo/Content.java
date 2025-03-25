@@ -3,6 +3,8 @@ package com.ken.webcrawlerapi.service.ptt.pojo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "content")
 @Data
@@ -23,5 +25,13 @@ public class Content {
 
     @Column(name = "ARTICLE_AUTHOR")
     private String articleAuthor;
+
+    @Column(name = "BRAND_NAME")
+    private String brandName;
+
+    @Column(name = "CREATE_TIME")
+    private LocalDateTime createTime;
+
+
 
 }
