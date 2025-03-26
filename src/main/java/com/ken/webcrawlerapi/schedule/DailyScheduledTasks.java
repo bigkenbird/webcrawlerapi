@@ -42,19 +42,18 @@ public class DailyScheduledTasks {
         log.info("end updateBrand - Current Time: {}", LocalDateTime.now().format(formatter));
     }
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(cron = "0 0 * * * ?")
     public void updatePosts() throws InterruptedException {
         log.info("start updatePosts - Current Time: {}", LocalDateTime.now().format(formatter));
         postService.updatePost();
         log.info("end updatePosts - Current Time: {}", LocalDateTime.now().format(formatter));
     }
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(cron = "0 * * * * ?")
     public void updateContents() {
         log.info("start updateContents - Current Time: {}", LocalDateTime.now().format(formatter));
         contentService.updateContents();
         log.info("end updateContents - Current Time: {}", LocalDateTime.now().format(formatter));
-
     }
 
 }

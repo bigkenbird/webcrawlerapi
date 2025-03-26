@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    @Query(value = "SELECT * FROM post WHERE CONTENT_IS_UPDATE = 0", nativeQuery = true)
-    List<Post> findContentNoUpdate();
+    @Query(value = "SELECT * FROM post WHERE CONTENT_IS_UPDATE = 0 LIMIT :limit", nativeQuery = true)
+    List<Post> findContentNoUpdate(@Param("limit") Integer limit);
 
     @Transactional
     @Modifying

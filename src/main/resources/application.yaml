@@ -14,3 +14,7 @@ management:
   endpoint:
     health:
       show-details: always
+schedule:
+  content:
+    solve:
+      count: 10

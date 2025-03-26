@@ -7,6 +7,7 @@ import com.ken.webcrawlerapi.service.ptt.repository.PTTCrawlerContentRepository;
 import com.ken.webcrawlerapi.service.ptt.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContentService {
 
+    @Value("${schedule.content.solve.count}")
+    private Integer contentSolveCount;
+
     private final PostRepository postRepository;
 
     private final ContentRepository contentRepository;
@@ -23,7 +27,7 @@ public class ContentService {
     private final PTTCrawlerContentRepository pttCrawlerContentRepository;
 
     public void updateContents(){
-        List<Post> contentNotUpdated = postRepository.findContentNoUpdate();
+        List<Post> contentNotUpdated = postRepository.findContentNoUpdate(contentSolveCount);
 
         for(Post post : contentNotUpdated){
             try{
