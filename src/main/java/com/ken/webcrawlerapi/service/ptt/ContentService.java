@@ -17,9 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContentService {
 
-    @Value("${schedule.content.solve.count}")
-    private Integer contentSolveCount;
-
     private final PostRepository postRepository;
 
     private final ContentRepository contentRepository;
@@ -27,15 +24,16 @@ public class ContentService {
     private final PTTCrawlerContentRepository pttCrawlerContentRepository;
 
     public void updateContents(){
-        List<Post> contentNotUpdated = postRepository.findContentNoUpdate(contentSolveCount);
+        List<Post> contentNotUpdated = postRepository.findContentNoUpdate(10);
 
         for(Post post : contentNotUpdated){
+            log.info("Updating content for post {}", post.getTitle());
             try{
                 Content content = pttCrawlerContentRepository.getContentByPost(post);
                 if(content != null){
                     contentRepository.save(content);
-                    postRepository.updateContentIsUpdateById(post.getId(), 1);
                 }
+                postRepository.updateContentIsUpdateById(post.getId(), 1);
             }
             catch (Exception e){
                 log.error(e.getMessage());
