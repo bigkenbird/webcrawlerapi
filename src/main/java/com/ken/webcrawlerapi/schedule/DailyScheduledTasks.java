@@ -29,7 +29,10 @@ public class DailyScheduledTasks {
 
     @PostConstruct
     public void init() {
-        updateBrand();
+        if(brandService.brandsNotExist()){
+            updateBrand();
+        }
+
     }
 
     @Scheduled(cron = "0 0 0 * * ?")

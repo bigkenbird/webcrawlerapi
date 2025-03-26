@@ -3,13 +3,13 @@ USE `webcrawler`;
 CREATE TABLE `brand`
 (
     `ID`         INT NOT NULL AUTO_INCREMENT,
-    `name`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `title`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `url`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `category`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `USER_COUNT` INT                                                       DEFAULT NULL,
+    `NAME`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `TITLE`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `URL`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `CATEGORY`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `USER_COUNT` INT  DEFAULT 0,
     PRIMARY KEY (`ID`),
-    UNIQUE KEY `NAME_UNIQUE` (`name`)
+    UNIQUE KEY `NAME_UNIQUE` (`NAME`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -21,7 +21,7 @@ CREATE TABLE `brand_log`
     `TITLE`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `URL`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `CATEGORY`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `USER_COUNT` INT                                                       DEFAULT NULL,
+    `USER_COUNT` INT  DEFAULT 0,
     PRIMARY KEY (`ID`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `post`
 (
     `ID`             INT NOT NULL AUTO_INCREMENT,
     `TITLE`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `COMMENT_COUNT`  INT  DEFAULT NULL,
+    `COMMENT_COUNT`  INT DEFAULT 0,
     `ARTICLE_AUTHOR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `URL`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `BRAND`          varchar(200) DEFAULT NULL,

@@ -40,7 +40,9 @@ public class PTTCrawlerPostsRepository {
         }
         Document document = parse(brandPageSource);
         Elements elements = document.select("div.r-ent");
-        return elements.stream().map(element -> mapToPost(element, brandName)).toList();
+        return elements.stream().map(element -> mapToPost(element, brandName))
+                .filter(post-> StringUtils.hasText(post.getUrl()))
+                .toList();
     }
 
     public String checkIsOverEighteen(String html) throws InterruptedException {
@@ -84,6 +86,7 @@ public class PTTCrawlerPostsRepository {
         post.setArticleAuthor(author);
         post.setTitle(title);
         post.setBrand(brandName);
+        post.setContentIsUpdate(0);
         return post;
     }
 

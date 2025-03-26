@@ -1,5 +1,6 @@
 package com.ken.webcrawlerapi.service.ptt.repository;
 
+import com.ken.webcrawlerapi.exception.pojo.WebCrawlerException;
 import com.ken.webcrawlerapi.service.ptt.pojo.Content;
 import com.ken.webcrawlerapi.service.ptt.pojo.Post;
 import com.ken.webcrawlerapi.util.CheckUtil;
@@ -11,6 +12,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,8 +27,6 @@ public class PTTCrawlerContentRepository {
 
     private final WebDriver chromeDriver;
 
-    private final PostRepository postRepository;
-
     public Content getContentByPost(Post post) {
         Content content = new Content();
         String contentUrl = post.getUrl();
@@ -35,16 +36,26 @@ public class PTTCrawlerContentRepository {
 
         String contentPageSource = CheckUtil.checkIsOverEighteen(chromeDriver, chromeDriver.getPageSource());
 
-        assert contentPageSource != null;
+        if(!StringUtils.hasText(contentPageSource)) {
+            throw new WebCrawlerException("Page source is empty");
+        }
+
         Document document = Jsoup.parse(contentPageSource);
         Elements metalineElements = document.getElementsByClass("article-metaline");
         Elements brandElements = document.getElementsByClass("article-metaline-right");
+
+        if(CollectionUtils.isEmpty(brandElements)|| brandElements.size()<3) {
+            return null;
+        }
 
         setContentMetaData(content, brandElements, metalineElements);
 
         Element mainContentElement = document.getElementById("main-content");
 
-        assert mainContentElement != null;
+        if(mainContentElement == null) {
+            throw new WebCrawlerException("mainContentElement is null");
+        }
+
         setContentText(content, mainContentElement);
 
         return content;
@@ -60,7 +71,7 @@ public class PTTCrawlerContentRepository {
         String title = titleElement.getElementsByClass("article-meta-value").text();
         String createTimeText = createTimeElement.getElementsByClass("article-meta-value").text();
         String brandName = Objects.requireNonNull(brandElements.first()).text();
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss yyyy", Locale.ENGLISH);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("EEE MMM d HH:mm:ss yyyy", Locale.ENGLISH);
         LocalDateTime createTime = LocalDateTime.parse(createTimeText, inputFormatter);
 
         content.setArticleAuthor(author);
@@ -70,6 +81,10 @@ public class PTTCrawlerContentRepository {
     }
 
     private void setContentText(Content content, Element mainContentElement) {
+        mainContentElement.select("div.article-metaline-right").remove();
+        mainContentElement.select("div.article-metaline").remove();
+        mainContentElement.select("div.f2").remove();
+        mainContentElement.select("div.push").remove();
         String contentText = mainContentElement.text();
         content.setContent(contentText);
     }

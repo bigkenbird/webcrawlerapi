@@ -14,22 +14,23 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "POST_ID")
+    @Column(name = "POST_ID", columnDefinition = "INT NOT NULL")
     private Integer postId;
 
-    @Column(name = "TITLE")
+    @Column(name = "TITLE", columnDefinition = "varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL")
     private String title;
 
-    @Column(name = "CONTENT")
+    @Lob
+    @Column(name = "CONTENT", columnDefinition = "TEXT DEFAULT NULL")
     private String content;
 
-    @Column(name = "ARTICLE_AUTHOR")
+    @Column(name = "ARTICLE_AUTHOR", columnDefinition = "varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL")
     private String articleAuthor;
 
-    @Column(name = "BRAND_NAME")
+    @Column(name = "BRAND_NAME", columnDefinition = "varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL")
     private String brandName;
 
-    @Column(name = "CREATE_TIME")
+    @Column(name = "CREATE_TIME",columnDefinition = "DATETIME NULL")
     private LocalDateTime createTime;
 
 

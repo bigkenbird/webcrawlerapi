@@ -4,6 +4,7 @@ import com.ken.webcrawlerapi.service.ptt.pojo.Brand;
 import com.ken.webcrawlerapi.service.ptt.pojo.Post;
 import com.ken.webcrawlerapi.service.ptt.repository.BrandRepository;
 import com.ken.webcrawlerapi.service.ptt.repository.PTTCrawlerPostsRepository;
+import com.ken.webcrawlerapi.service.ptt.repository.PostJdbcRepository;
 import com.ken.webcrawlerapi.service.ptt.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,8 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    private final PostJdbcRepository postJdbcRepository;
+
     private final PTTCrawlerPostsRepository pttCrawlerPostsRepository;
 
     public void updatePost() throws InterruptedException {
@@ -33,7 +36,7 @@ public class PostService {
             String brandUrl = brand.getUrl();
             List<Post> posts = pttCrawlerPostsRepository.getPosts(brandUrl, brandName);
             List<Post> distinctPosts = posts.stream().distinct().toList();
-            postRepository.saveAll(distinctPosts);
+            postJdbcRepository.batchUpsertPosts(distinctPosts);
         }
         log.info("Updating post end, update count:{}", postRepository.count());
     }

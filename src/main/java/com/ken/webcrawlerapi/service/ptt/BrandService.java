@@ -62,4 +62,9 @@ public class BrandService {
         return brandRepository.findByName(brandName).orElse(null);
     }
 
+    public Boolean brandsNotExist() {
+        List<Brand> brands = brandRepository.findAll();
+        return brands.isEmpty();
+    }
+
 }

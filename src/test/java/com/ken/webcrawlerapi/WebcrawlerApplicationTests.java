@@ -18,12 +18,23 @@ class WebcrawlerApplicationTests {
     @Autowired
     PTTCrawlerContentRepository pttCrawlerContentRepository;
 
+    @Autowired
+    PostService postService;
+
+    @Autowired
+    ContentService contentService;
+
     @Test
-    void updateContent() {
-        Post post = new Post();
-        post.setUrl("https://www.ptt.cc/bbs/Stock/M.1742867749.A.8AA.html");
-        Content content = pttCrawlerContentRepository.getContentByPost(post);
-        System.out.println(content);
+    void updateContent() throws InterruptedException {
+       //postService.updatePost();
+
+
+//        Post post = new Post();
+//        post.setUrl("https://www.ptt.cc/bbs/Stock/M.1742867749.A.8AA.html");
+//        Content content = pttCrawlerContentRepository.getContentByPost(post);
+//        System.out.println(content);
+
+        contentService.updateContents();
     }
 
 }

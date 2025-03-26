@@ -26,9 +26,17 @@ public class ContentService {
         List<Post> contentNotUpdated = postRepository.findContentNoUpdate();
 
         for(Post post : contentNotUpdated){
-            Content content = pttCrawlerContentRepository.getContentByPost(post);
-            contentRepository.save(content);
-            postRepository.updateContentIsUpdateById(post.getId(), 1);
+            try{
+                Content content = pttCrawlerContentRepository.getContentByPost(post);
+                if(content != null){
+                    contentRepository.save(content);
+                    postRepository.updateContentIsUpdateById(post.getId(), 1);
+                }
+            }
+            catch (Exception e){
+                log.error(e.getMessage());
+            }
+
         }
     }
 }
